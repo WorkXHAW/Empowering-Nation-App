@@ -24,4 +24,20 @@ export default function HomeScreen() {
     );
 }
 
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fefaf5",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  header: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  logo: {
+    width: 120, // adjust size for your logo
+    height: 120,
+    marginBottom: 10,
+    resizeMode: "contain", // keeps proportions
+  },
