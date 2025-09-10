@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
-    const router = useRouter(); // navigation hook
+    const router = useRouter(); // navigation
 
     return (
         <View style={styles.container}>
@@ -17,7 +17,8 @@ export default function HomeScreen() {
             <View style={styles.aboutBox}>
                 <Text style={styles.aboutTitle}>About Us</Text>
                 <Text style={styles.aboutText}>
-                    Short introduction about the initiative. Learn more...
+                    Empowering Nation is dedicated to fostering community growth and development through various initiatives and programs. 
+                    {"\n"}Our mission is to empower individuals and communities to achieve their full potential.
                 </Text>
             </View>
 
@@ -51,8 +52,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     logo: {
-        width: 120,
-        height: 120,
+        width: 250,
+        height: 250,
         marginBottom: 10,
         resizeMode: "contain",
     },
