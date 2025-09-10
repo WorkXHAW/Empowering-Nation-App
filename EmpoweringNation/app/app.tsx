@@ -7,7 +7,7 @@ export default function HomeScreen() {
             {/* Logo */}
             <View style={styles.header}>
                 <Image
-                    source={require("../assets/logo.png")}
+                    source={require("../assets/images/logo.png")}
                     style={styles.logo}
                 />
                 <Text style={styles.title}>Empowering Nation</Text>
