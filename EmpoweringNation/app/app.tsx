@@ -25,19 +25,43 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fefaf5",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  header: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  logo: {
-    width: 120, // adjust size for your logo
-    height: 120,
-    marginBottom: 10,
-    resizeMode: "contain", // keeps proportions
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#fefaf5",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    header: {
+        alignItems: "center",
+        marginBottom: 20,
+    },
+    logo: {
+        width: 120,
+        height: 120,
+        marginBottom: 10,
+        resizeMode: "contain",
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#333",
+    },
+    aboutBox: {
+        marginVertical: 20,
+        padding: 15,
+        backgroundColor: "#fff",
+        borderRadius: 10,
+        width: "85%",
+        alignItems: "center",
+    },
+    aboutTitle: {
+        fontSize: 16,
+        fontWeight: "bold",
+        marginBottom: 5,
+    },
+    aboutText: {
+        fontSize: 14,
+        color: "#666",
+        textAlign: "center",
+    },
+});
