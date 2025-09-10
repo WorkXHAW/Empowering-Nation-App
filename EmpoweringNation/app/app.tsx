@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 
 export default function HomeScreen() {
     return (
-      return (
         <View style={styles.container}>
             {/* Logo */}
             <View style={styles.header}>
