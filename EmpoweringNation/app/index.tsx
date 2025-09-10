@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
+    const router = useRouter(); // navigation hook
+
     return (
         <View style={styles.container}>
-            {/* Logo */}
             <View style={styles.header}>
                 <Image
                     source={require("../assets/images/logo.png")}
@@ -16,9 +17,24 @@ export default function HomeScreen() {
             <View style={styles.aboutBox}>
                 <Text style={styles.aboutTitle}>About Us</Text>
                 <Text style={styles.aboutText}>
-                    Empowering Nation is dedicated to fostering community growth and development through various initiatives and programs. Our mission is to empower individuals and communities to achieve their full potential.
+                    Short introduction about the initiative. Learn more...
                 </Text>
             </View>
+
+            {/* Buttons */}
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => router.push("./sixWeek")}
+            >
+                <Text style={styles.buttonText}>6 WEEK COURSES</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => router.push("./sixMonth")}
+            >
+                <Text style={styles.buttonText}>6 MONTH COURSES</Text>
+            </TouchableOpacity>
         </View>
     );
 }
