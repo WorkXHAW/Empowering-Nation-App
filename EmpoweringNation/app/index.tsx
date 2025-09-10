@@ -63,4 +63,16 @@ const styles = StyleSheet.create({
         color: "#666",
         textAlign: "center",
     },
+    button: {
+        backgroundColor: "#e67e22",
+        padding: 15,
+        borderRadius: 8,
+        width: "80%",
+        marginVertical: 8,
+        alignItems: "center",
+    },
+    buttonText: {
+        color: "#fff",
+        fontWeight: "bold"
+    },
 });
