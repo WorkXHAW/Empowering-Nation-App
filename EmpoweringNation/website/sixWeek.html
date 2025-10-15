@@ -1,27 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
     <title>6 Week Courses - Empowering Nation</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      let selected = [];
+      function toggleCourse(id) {
+        if (selected.includes(id)) {
+          selected = selected.filter((cid) => cid !== id);
+        } else {
+          selected.push(id);
+        }
+        document.getElementById(id).classList.toggle("selected");
+        document.getElementById("addBtn").disabled = selected.length === 0;
+      }
+      function addToQuote() {
+        localStorage.setItem("sixWeekSelected", JSON.stringify(selected));
+        window.location.href = "quote.html";
+      }
+    </script>
+  </head>
+  <body>
     <header>
-        <h1>6 Week Courses</h1>
-        <a href="index.html" class="back-link">← Back to Home</a>
+      <a href="index.html" class="top-btn left">Home</a>
+      <h1>6 Week Courses</h1>
     </header>
-
     <main>
-        <div class="course-card">
-            <h2>Cooking</h2>
-            <p>Purpose: To prepare and cook nutritious family meals.</p>
-            <p><strong>Duration:</strong> 6 weeks</p>
-            <p><strong>Price:</strong> R750</p>
+      <div class="courses">
+        <div id="cooking" class="course-card" onclick="toggleCourse('cooking')">
+          <h3>Cooking</h3>
+          <p>Purpose: To prepare and cook nutritious family meals.</p>
+          <p>Duration: 6 weeks</p>
+          <p>Price: R750</p>
         </div>
+        <div
+          id="childMinding"
+          class="course-card"
+          onclick="toggleCourse('childMinding')"
+        >
+          <h3>Child Minding</h3>
+          <p>Purpose: To provide basic child and baby care.</p>
+          <p>Duration: 6 weeks</p>
+          <p>Price: R750</p>
+        </div>
+        <div
+          id="gardenMaintenance"
+          class="course-card"
+          onclick="toggleCourse('gardenMaintenance')"
+        >
+          <h3>Garden Maintenance</h3>
+          <p>
+            Purpose: To provide basic knowledge of watering, pruning and
+            planting in domestic garden.
+          </p>
+          <p>Duration: 6 weeks</p>
+          <p>Price: R750</p>
+        </div>
+      </div>
+      <button id="addBtn" class="btn" onclick="addToQuote()" disabled>
+        Add to Quote
+      </button>
     </main>
-</body>
-
+  </body>
 </html>

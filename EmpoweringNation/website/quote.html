@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quote - Empowering Nation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      const sixWeekCourses = {
+        cooking: { title: "Cooking", price: 750, type: "6 Week" },
+        childMinding: { title: "Child Minding", price: 750, type: "6 Week" },
+        gardenMaintenance: { title: "Garden Maintenance", price: 750, type: "6 Week" }
+      };
+      const sixMonthCourses = {
+        sewing: { title: "Sewing", price: 1500, type: "6 Month" },
+        firstAid: { title: "First Aid", price: 1500, type: "6 Month" },
+        landscaping: { title: "Landscaping", price: 1500, type: "6 Month" }
+      };
+      function renderQuote() {
+        const weekSelected = JSON.parse(localStorage.getItem('sixWeekSelected') || '[]');
+        const monthSelected = JSON.parse(localStorage.getItem('sixMonthSelected') || '[]');
+        let courses = [];
+        weekSelected.forEach(id => {
+          if (sixWeekCourses[id]) courses.push(sixWeekCourses[id]);
+        });
+        monthSelected.forEach(id => {
+          if (sixMonthCourses[id]) courses.push(sixMonthCourses[id]);
+        });
+        let total = courses.reduce((sum, c) => sum + c.price, 0);
+        let html = '';
+        if (courses.length === 0) {
+          html = '<p>No courses selected.</p>';
+        } else {
+          html = '<ul>';
+          courses.forEach(c => {
+            html += `<li>${c.title} (${c.type}) - R${c.price}</li>`;
+          });
+          html += `</ul><p class="total">Total: R${total}</p>`;
+        }
+        document.getElementById('quoteList').innerHTML = html;
+      }
+      window.onload = renderQuote;
+    </script>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="top-btn left">Home</a>
+        <h1>Your Quote</h1>
+    </header>
+    <main>
+        <div id="quoteList" class="quote-list"></div>
+    </main>
+</body>
+</html>

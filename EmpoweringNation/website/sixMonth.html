@@ -1,27 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
     <title>6 Month Courses - Empowering Nation</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      let selected = [];
+      function toggleCourse(id) {
+        if (selected.includes(id)) {
+          selected = selected.filter((cid) => cid !== id);
+        } else {
+          selected.push(id);
+        }
+        document.getElementById(id).classList.toggle("selected");
+        document.getElementById("addBtn").disabled = selected.length === 0;
+      }
+      function addToQuote() {
+        localStorage.setItem("sixMonthSelected", JSON.stringify(selected));
+        window.location.href = "quote.html";
+      }
+    </script>
+  </head>
+  <body>
     <header>
-        <h1>6 Month Courses</h1>
-        <a href="index.html" class="back-link">← Back to Home</a>
+      <a href="index.html" class="top-btn left">Home</a>
+      <h1>6 Month Courses</h1>
     </header>
-
     <main>
-        <div class="course-card">
-            <h2>Sewing</h2>
-            <p>Purpose: To provide alterations and new garment tailoring services.</p>
-            <p><strong>Duration:</strong> 6 months</p>
-            <p><strong>Price:</strong> R1500</p>
+      <div class="courses">
+        <div id="sewing" class="course-card" onclick="toggleCourse('sewing')">
+          <h3>Sewing</h3>
+          <p>
+            Purpose: To provide alterations and new garment tailoring services.
+          </p>
+          <p>Duration: 6 months</p>
+          <p>Price: R1500</p>
         </div>
+        <div
+          id="firstAid"
+          class="course-card"
+          onclick="toggleCourse('firstAid')"
+        >
+          <h3>First Aid</h3>
+          <p>Purpose: To provide first aid awareness and basic life support.</p>
+          <p>Duration: 6 months</p>
+          <p>Price: R1500</p>
+        </div>
+        <div
+          id="landscaping"
+          class="course-card"
+          onclick="toggleCourse('landscaping')"
+        >
+          <h3>Landscaping</h3>
+          <p>
+            Purpose: To provide Landscaping services for new and established
+            gardens.
+          </p>
+          <p>Duration: 6 months</p>
+          <p>Price: R1500</p>
+        </div>
+      </div>
+      <button id="addBtn" class="btn" onclick="addToQuote()" disabled>
+        Add to Quote
+      </button>
     </main>
-</body>
-
+  </body>
 </html>
