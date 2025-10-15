@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - Empowering Nation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      function validateForm(event) {
+        event.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const error = document.getElementById('error');
+        error.textContent = '';
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          error.textContent = 'Please enter a valid email address.';
+          return false;
+        }
+        if (message.split(/\s+/).length > 500) {
+          error.textContent = 'Message must be 500 words or less.';
+          return false;
+        }
+        alert('Message Sent!\nThank you for contacting us!');
+        document.getElementById('contactForm').reset();
+        return true;
+      }
+    </script>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="top-btn left">Home</a>
+        <h1>Contact Us</h1>
+    </header>
+    <main>
+        <form id="contactForm" class="contact-form" onsubmit="validateForm(event)">
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message (max 500 words)" rows="8" required></textarea>
+            <div id="error" class="error"></div>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </main>
+</body>
+</html>
