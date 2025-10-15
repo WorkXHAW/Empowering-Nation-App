@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -40,20 +42,37 @@ export default function HomeScreen() {
         </Text>
       </View>
 
-      {/* Buttons */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push("./sixWeek")}
-      >
-        <Text style={styles.buttonText}>6 WEEK COURSES</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push("./sixMonth")}
-      >
-        <Text style={styles.buttonText}>6 MONTH COURSES</Text>
-      </TouchableOpacity>
+      {/* Dropdown for course selection */}
+      <View style={styles.dropdownContainer}>
+        <TouchableOpacity
+          style={styles.dropdownButton}
+          onPress={() => setDropdownOpen(!dropdownOpen)}
+        >
+          <Text style={styles.dropdownButtonText}>Select a course ▼</Text>
+        </TouchableOpacity>
+        {dropdownOpen && (
+          <View style={styles.dropdownContent}>
+            <TouchableOpacity
+              style={styles.dropdownItem}
+              onPress={() => {
+                setDropdownOpen(false);
+                router.push("./sixWeek");
+              }}
+            >
+              <Text style={styles.dropdownItemText}>6 WEEK COURSES</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.dropdownItem}
+              onPress={() => {
+                setDropdownOpen(false);
+                router.push("./sixMonth");
+              }}
+            >
+              <Text style={styles.dropdownItemText}>6 MONTH COURSES</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
     </View>
   );
 }
@@ -128,16 +147,43 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: "center",
   },
-  button: {
+  dropdownContainer: {
+    width: "80%",
+    alignItems: "center",
+    marginTop: 16,
+  },
+  dropdownButton: {
     backgroundColor: "#e67e22",
     padding: 15,
     borderRadius: 8,
-    width: "80%",
-    marginVertical: 8,
+    width: "100%",
     alignItems: "center",
   },
-  buttonText: {
+  dropdownButtonText: {
     color: "#fff",
     fontWeight: "bold",
+    fontSize: 16,
+  },
+  dropdownContent: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    marginTop: 4,
+    width: "100%",
+    shadowColor: "#e67e22",
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  dropdownItem: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    alignItems: "center",
+  },
+  dropdownItemText: {
+    color: "#e67e22",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
