@@ -206,3 +206,29 @@ h1 {
 .dropdown.show .dropdown-content {
   display: block;
 }
+
+main {
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  min-height: 80vh;
+}
+.clear-btn {
+  background-color: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+}
+
+.clear-btn:hover {
+  background-color: #cf711f;
+}
