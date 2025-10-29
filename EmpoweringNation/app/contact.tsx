@@ -6,22 +6,41 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 
 export default function ContactScreen() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [wordCount, setWordCount] = useState(0);
 
   const validateEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const countWords = (text: string) =>
+    text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
+
+  const onChangeMessage = (text: string) => {
+    const wc = countWords(text);
+    setWordCount(wc);
+    setMessage(text);
+    if (wc > 500) {
+      setError("Message must be 500 words or less.");
+    } else {
+      // clear only word-count related error
+      setError((e) => (e === "Message must be 500 words or less." ? "" : e));
+    }
+  };
 
   const handleSend = () => {
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
-    if (message.trim().split(/\s+/).length > 500) {
+    if (wordCount > 500) {
       setError("Message must be 500 words or less.");
       return;
     }
@@ -29,37 +48,62 @@ export default function ContactScreen() {
     Alert.alert("Message Sent", "Thank you for contacting us!");
     setEmail("");
     setMessage("");
+    setWordCount(0);
   };
 
+  const overLimit = wordCount > 500;
+  const sendDisabled = !email || !message || overLimit;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Contact Us</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Your Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={[styles.input, styles.messageInput]}
-        placeholder="Your Message (max 500 words)"
-        value={message}
-        onChangeText={setMessage}
-        multiline
-        numberOfLines={6}
-        maxLength={4000} // generous char limit
-      />
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleSend}
-        disabled={!email || !message}
-      >
-        <Text style={styles.buttonText}>Send Message</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Contact Us</Text>
+        <Text style={styles.contactInfo}>
+          Contact us at Empowering@gmail.com
+        </Text>
+        <Text style={styles.contactInfo}>Contact us at +27 83 123 4567</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Your Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          style={[
+            styles.input,
+            styles.messageInput,
+            overLimit && styles.inputError,
+          ]}
+          placeholder="Your Message (max 500 words)"
+          value={message}
+          onChangeText={onChangeMessage}
+          multiline
+          numberOfLines={6}
+          maxLength={4000}
+        />
+
+        <Text style={[styles.counter, overLimit && styles.counterOver]}>
+          {wordCount}/500 words
+        </Text>
+
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+
+        <TouchableOpacity
+          style={[styles.button, sendDisabled && styles.buttonDisabled]}
+          onPress={handleSend}
+          disabled={sendDisabled}
+        >
+          <Text style={styles.buttonText}>Send Message</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -81,15 +125,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     padding: 14,
-    marginBottom: 16,
+    marginBottom: 8,
     fontSize: 16,
     borderWidth: 1,
     borderColor: "#ddd",
   },
-  messageInput: {
-    minHeight: 120,
-    textAlignVertical: "top",
-  },
+  inputError: { borderColor: "#c0392b" },
+  messageInput: { minHeight: 120, textAlignVertical: "top" },
+  counter: { textAlign: "right", marginBottom: 8, color: "#555" },
+  counterOver: { color: "#c0392b", fontWeight: "600" },
   button: {
     backgroundColor: "#e67e22",
     padding: 16,
@@ -97,14 +141,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 8,
   },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
+  buttonDisabled: { opacity: 0.5 },
+  buttonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
+  error: { color: "#c0392b", marginBottom: 8, textAlign: "center" },
+  contactInfo: {
     fontSize: 16,
-  },
-  error: {
-    color: "#c0392b",
-    marginBottom: 8,
+    color: "#333",
     textAlign: "center",
+    marginBottom: 8,
   },
 });
